@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-[#050505]: #050505;
+  --color-[#0D0D0D]: #0D0D0D;
+  --color-[#0A0A0A]: #0A0A0A;
+}
+
+/* Custom premium scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.15);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.35);
+}
+
+/* Elegant keyframe animations for polished layout entries */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-zoomIn {
+  animation: zoomIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Sophisticated Dark Global Theme Enhancement */
+.dark {
+  background-color: #050505 !important;
+  color: #d1d5db !important;
+}
+
+/* Forcing exact pitch dark surface fills on component containers */
+.dark .dark\:bg-zinc-950 {
+  background-color: #050505 !important;
+}
+
+.dark .dark\:bg-zinc-900 {
+  background-color: #0D0D0D !important;
+}
+
+.dark .dark\:bg-zinc-800 {
+  background-color: #121212 !important;
+}
+
+.dark .dark\:bg-[#0D0D0D] {
+  background-color: #0D0D0D !important;
+}
+
+/* Interactive card border overrides for luxury layout */
+.dark .dark\:border-zinc-800,
+.dark .dark\:border-zinc-850,
+.dark .dark\:border-[#1f2937] {
+  border-color: rgba(226, 232, 240, 0.08) !important;
+}
+
+/* Sophisticated Light/Dark theme balance for elements */
+.dark .text-yellow-500,
+.dark .text-yellow-400 {
+  color: #60a5fa !important; /* Premium Sky Blue / Slate-blue font */
+}
+
+.dark .text-yellow-600,
+.dark .text-yellow-700 {
+  color: #3b82f6 !important;
+}
+
+/* Convert all yellow/orange badges and action buttons into gorgeous deep-sea high-contrast blues & indigos */
+.dark .bg-yellow-500,
+.dark .dark\:bg-yellow-500 {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.dark .bg-yellow-500:hover,
+.dark .dark\:bg-yellow-500:hover {
+  background-color: #3b82f6 !important;
+}
+
+.dark .bg-yellow-600 {
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+.dark .bg-yellow-101,
+.dark .bg-yellow-100,
+.dark .bg-yellow-105 {
+  background-color: rgba(37, 99, 235, 0.12) !important;
+  color: #60a5fa !important;
+}
+
+.dark .bg-yellow-51,
+.dark .bg-yellow-50,
+.dark .dark\:bg-yellow-950\/20,
+.dark .dark\:bg-yellow-950\/25,
+.dark .dark\:bg-yellow-950\/40 {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+  color: #60a5fa !important;
+}
+
+.dark .text-yellow-800 {
+  color: #93c5fd !important;
+}
+
+.dark .text-yellow-904 {
+  color: #93c5fd !important;
+}
+
+.dark .border-yellow-200,
+.dark .border-yellow-300,
+.dark .border-yellow-100,
+.dark .dark\:border-yellow-950\/50,
+.dark .dark\:border-yellow-950\/40 {
+  border-color: rgba(37, 99, 235, 0.18) !important;
+}
+
+.dark .border-l-yellow-500 {
+  border-left-color: #2563eb !important;
+}
+
+.dark .border-l-4.border-yellow-500 {
+  border-left-color: #2563eb !important;
+}
+
+/* Interactive inputs and forms accent colors */
+.dark .focus\:ring-yellow-500:focus {
+  --tw-ring-color: #3b82f6 !important;
+  border-color: #2563eb !important;
+}
+
+/* Code layout background improvements */
+.dark .bg-slate-950 {
+  background-color: #050505 !important;
+  border-color: rgba(226, 232, 240, 0.08) !important;
+}
+
+/* Code view token overrides */
+.dark .text-yellow-300 {
+  color: #a5b4fc !important; /* Soft violet */
+}
+
+.dark .text-yellow-200 {
+  color: #93c5fd !important; /* Soft light-blue */
+}
+
+/* Sparkle accent colors */
+.dark .text-yellow-505 {
+  color: #60a5fa !important;
+}
+
+/* Custom list-hover focus styles */
+.dark .dark\:hover\:text-yellow-400:hover {
+  color: #60a5fa !important;
+}
+
+.dark .dark\:hover\:bg-yellow-950\/20:hover {
+  background-color: rgba(37, 99, 235, 0.08) !important;
+}

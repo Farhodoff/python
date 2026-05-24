@@ -1,0 +1,6 @@
+{
+  "name": "Python O'quv Platformasi",
+  "description": "Python dasturlash tilini 0 dan professional darajagacha o'rgatuvchi zamonaviy, interaktiv va sun'iy intellektli ta'lim platformasi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
