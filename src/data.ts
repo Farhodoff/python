@@ -107,6 +107,35 @@ mevalar.append("gilos")
 print(mevalar)`,
             exercisePrompt: "mevalar ro'yxatiga append() yordamida 'gilos' elementini qo'shing so'ng ro'yxatni chop eting.",
             testCases: [{ input: "", expectedOutput: "['olma', 'anor', 'gilos']" }]
+          },
+          {
+            id: "m1_l5",
+            title: "Kortej va To'plamlar (Tuples & Sets)",
+            duration: "15 daqiqa",
+            content: `### Kortejlar (Tuples) va To'plamlar (Sets)
+Pythonda elementlarni guruhlash uchun ro'yxatdan tashqari **Tuple** va **Set** tuzilmalari ham mavjud.
+
+1. **Tuple (Kortej)**: Elementlari o'zgartirib bo'lmaydigan (immutable) va tartiblangan to'plam. Yumaloq qavslar \`()\` yordamida yaratiladi.
+\`\`\`python
+koordinatalar = (41.2995, 69.2401)
+# koordinatalar[0] = 42.0  # Xato! Tuple elementlarini o'zgartirib bo'lmaydi.
+\`\`\`
+
+2. **Set (To'plam)**: Elementlari tartiblanmagan va takrorlanmas (unique) bo'lgan to'plam. Gullik qavslar \`{}\` yordamida yaratiladi. Set asosan ro'yxat ichidan takrorlangan elementlarni o'chirish uchun juda foydali.
+\`\`\`python
+raqamlar = {1, 2, 2, 3}
+print(raqamlar) # {1, 2, 3} (2 faqat bir marta chiqadi)
+\`\`\``,
+            codeExample: `ismlar = ["Ali", "Vali", "Ali", "Sardor", "Vali"]
+# Berilgan ismlar ro'yxatidan takrorlanuvchi ismlarni o'chirish uchun
+# set (to'plam) yarating va uning elementlari sonini (len) chop eting.
+noyob_ismlar = set(ismlar)
+# Bu yerga elementlar sonini chop qiluvchi kod yozing`,
+            solution: `ismlar = ["Ali", "Vali", "Ali", "Sardor", "Vali"]
+noyob_ismlar = set(ismlar)
+print(len(noyob_ismlar))`,
+            exercisePrompt: "noyob_ismlar to'plamining elementlari sonini (uzunligini) len() funksiyasi orqali chop eting.",
+            testCases: [{ input: "", expectedOutput: "3" }]
           }
         ]
       },
@@ -244,6 +273,47 @@ except ZeroDivisionError:
     print("Nolga bo'lish xatosi!")`,
             exercisePrompt: "try-except yordamida ZeroDivisionError xatoligini ushlab, ekranga 'Nolga bo'lish xatosi!' matnini chop eting.",
             testCases: [{ input: "", expectedOutput: "Nolga bo'lish xatosi!" }]
+          },
+          {
+            id: "m2_l6",
+            title: "Fayllar bilan ishlash (File Handling)",
+            duration: "18 daqiqa",
+            content: `### Fayllar bilan ishlash (File Handling)
+Dasturlashda ma'lumotlarni doimiy saqlash uchun ularni faylga yozish yoki fayldan o'qish kerak bo'ladi. Pythonda bu juda qulay tarzda amalga oshiriladi.
+
+### Faylni ochish va yopish
+Fayllar bilan ishlashda hamisha faylni yopishni unutmaslik lozim. Buning uchun eng yaxshi usul - \`with open()\` blokidan foydalanishdir. Bu blok yakunida fayl avtomatik ravishda yopiladi.
+
+Rejimlar:
+* \`'r'\` - O'qish (Read)
+* \`'w'\` - Yozish (Write - faylni qaytadan yaratadi yoki ustidan yozadi)
+* \`'a'\` - Qo'shish (Append - fayl oxiriga ma'lumot qo'shadi)
+
+\`\`\`python
+# Faylga yozish
+with open("salom.txt", "w") as fayl:
+    fayl.write("Salom, Dunyo!")
+
+# Fayldan o'qish
+with open("salom.txt", "r") as fayl:
+    matn = fayl.read()
+    print(matn) # Salom, Dunyo!
+\`\`\``,
+            codeExample: `# 'data.txt' nomli fayl yarating (w rejimida), 
+# unga 'Python 2026' matnini yozing.
+# So'ng uni o'qib (r rejimida) print qiling.
+with open("data.txt", "w") as f:
+    f.write("Python 2026")
+
+with open("data.txt", "r") as f:
+    # Faylni o'qing va print qiling`,
+            solution: `with open("data.txt", "w") as f:
+    f.write("Python 2026")
+
+with open("data.txt", "r") as f:
+    print(f.read())`,
+            exercisePrompt: "with open() yordamida data.txt faylini o'qib uning tarkibini print qiling (Natija: Python 2026).",
+            testCases: [{ input: "", expectedOutput: "Python 2026" }]
           }
         ]
       }
@@ -405,6 +475,196 @@ ali_hisob.withdraw(200)
 print(ali_hisob.balans)`,
             exercisePrompt: "Ali ismli 1000 balansga ega BankAccount yaratib, 500 deposit qiling va 200 withdraw qiling, so'ng yakuniy balansni chop eting (Natija: 1300).",
             testCases: [{ input: "", expectedOutput: "1300" }]
+          },
+          {
+            id: "m3_l4",
+            title: "Polimorfizm va Metodlarni Qayta Yozish (Polymorphism)",
+            duration: "20 daqiqa",
+            content: `### Polimorfizm (Polymorphism)
+Polimorfizm - bu bir xil nomli metodlarning turli klasslarda har xil vazifalarni bajarishidir. U odatda vorislik (inheritance) bilan birga keladi va metodlarni qayta yozish (method overriding) orqali amalga oshiriladi.
+
+Metodlarni qayta yozish - bu subclass (bola klass) superklass (ota klass) dagi metodni o'z ehtiyojiga qarab o'zgartirib qayta e'lon qilishidir.
+
+\`\`\`python
+class Hayvon:
+    def tovush(self):
+        return "Noma'lum tovush"
+
+class Kuchuk(Hayvon):
+    def tovush(self):
+        return "Vov-vov"
+
+class Mushuk(Hayvon):
+    def tovush(self):
+        return "Miyau"
+\`\`\``,
+            codeExample: `class Hayvon:
+    def tovush(self):
+        return "Noma'lum tovush"
+
+# 1. Hayvon klassidan meros oluvchi Kuchuk klassini yarating
+# 2. Unda 'tovush' metodini qayta yozib, "Vov-vov" qiymatini qaytaring (return)
+# 3. Kuchuk obyektini yaratib, tovush() metodini print qiling`,
+            solution: `class Hayvon:
+    def tovush(self):
+        return "Noma'lum tovush"
+
+class Kuchuk(Hayvon):
+    def tovush(self):
+        return "Vov-vov"
+
+rex = Kuchuk()
+print(rex.tovush())`,
+            exercisePrompt: "Kuchuk klassini yaratib, uning tovush() metodi 'Vov-vov' matnini qaytarishini ta'minlang va print qiling (Natija: Vov-vov).",
+            testCases: [{ input: "", expectedOutput: "Vov-vov" }]
+          },
+          {
+            id: "m3_l5",
+            title: "Inkapsulyatsiya va Getter/Setter (Encapsulation)",
+            duration: "22 daqiqa",
+            content: `### Inkapsulyatsiya (Encapsulation)
+Inkapsulyatsiya - bu obyekt ma'lumotlarini (o'zgaruvchilarini) tashqaridan to'g'ridan-to'g'ri o'zgartirishdan himoyalash va ularga faqat maxsus metodlar orqali murojaat qilishni ta'minlashdir.
+
+Pythonda o'zgaruvchini himoyalash uchun:
+* Bitta underscore (\`_nomi\`) - protected (himoyalangan, faqat subclasslarda foydalanish tavsiya etiladi).
+* Ikkita underscore (\`__nomi\`) - private (xususiy, klass tashqarisidan unga to'g'ridan-to'g'ri kirib bo'lmaydi).
+
+Maxfiy o'zgaruvchilarni olish va o'zgartirish uchun \`@property\` (getter) va \`@getter_nomi.setter\` (setter) dekoratorlaridan foydalanamiz:
+
+\`\`\`python
+class Shaxs:
+    def __init__(self, ism):
+        self.__ism = ism # private variable
+
+    @property
+    def ism(self):
+        return self.__ism
+
+    @ism.setter
+    def ism(self, yangi_ism):
+        if len(yangi_ism) > 1:
+            self.__ism = yangi_ism
+\`\`\``,
+            codeExample: `class BankHisobi:
+    def __init__(self, balans):
+        self.__balans = balans  # private o'zgaruvchi
+
+    # 1. @property dekoratori yordamida 'balans' getterni yozing (u __balans ni qaytarsin)
+    # 2. Hisob yaratib, balansni print qiling.`,
+            solution: `class BankHisobi:
+    def __init__(self, balans):
+        self.__balans = balans
+
+    @property
+    def balans(self):
+        return self.__balans
+
+hisob = BankHisobi(2500)
+print(hisob.balans)`,
+            exercisePrompt: "BankHisobi klassida balans getterini property sifatida e'lon qilib, 2500 balansli obyekt yarating va balansini chop eting (Natija: 2500).",
+            testCases: [{ input: "", expectedOutput: "2500" }]
+          },
+          {
+            id: "m3_l6",
+            title: "Abstraksiya va Abstrakt Klasslar (Abstraction)",
+            duration: "25 daqiqa",
+            content: `### Abstraksiya (Abstraction)
+Abstraksiya - bu murakkab tizimning faqat kerakli qismini ko'rsatib, ichki amalga oshirish detallarini yashirishdir. 
+
+Pythonda abstrakt klass va metodlar yaratish uchun \`abc\` (Abstract Base Classes) modulidan foydalaniladi. Abstrakt klassdan to'g'ridan-to'g'ri obyekt olib bo'lmaydi. Subclasslar esa undagi barcha abstrakt metodlarni majburiy ravishda realizatsiya qilishi (yozishi) shart.
+
+\`\`\`python
+from abc import ABC, abstractmethod
+
+class Shakl(ABC):
+    @abstractmethod
+    def yuza(self):
+        pass
+
+class Doira(Shakl):
+    def __init__(self, radius):
+        self.radius = radius
+    def yuza(self):
+        return 3.14 * (self.radius ** 2)
+\`\`\``,
+            codeExample: `from abc import ABC, abstractmethod
+
+class Shakl(ABC):
+    @abstractmethod
+    def yuza(self):
+        pass
+
+# 1. Shakl klassidan meros olgan Tortburchak klassini yarating.
+# 2. Konstruktorda eni va boyi parametrlarini qabul qilsin.
+# 3. yuza() metodini realizatsiya qiling (eni * boyi).
+# 4. Eni 5, bo'yi 4 bo'lgan Tortburchak yaratib, yuzasini print qiling.`,
+            solution: `from abc import ABC, abstractmethod
+
+class Shakl(ABC):
+    @abstractmethod
+    def yuza(self):
+        pass
+
+class Tortburchak(Shakl):
+    def __init__(self, eni, boyi):
+        self.eni = eni
+        self.boyi = boyi
+    def yuza(self):
+        return self.eni * self.boyi
+
+t = Tortburchak(5, 4)
+print(t.yuza())`,
+            exercisePrompt: "Tortburchak(5, 4) obyekti yuzasini hisoblab print qiling (Natija: 20).",
+            testCases: [{ input: "", expectedOutput: "20" }]
+          },
+          {
+            id: "m3_l7",
+            title: "Dunder/Magic Metodlar",
+            duration: "20 daqiqa",
+            content: `### Dunder (Double Underscore) yoki Magic metodlar
+Dunder metodlar - bu ikki tomondan ikkita pastki chiziq bilan o'ralgan maxsus metodlardir (masalan \`__init__\`). Ular klass obyektlariga standart Python operatorlari (qo'shish, satrga o'girish, uzunlikni aniqlash va h.k.) bilan ishlash imkonini beradi.
+
+Mashhur dunder metodlar:
+* \`__str__(self)\` - Obyektni \`print()\` qilganda yoki \`str()\` ga o'girganda qanday matn chiqishini belgilaydi.
+* \`__len__(self)\` - Obyekt ustida \`len()\` funksiyasi chaqirilganda qaytadigan qiymat.
+* \`__add__(self, boshqa)\` - Ikkita obyektni \`+\` operatori bilan qo'shganda ishlaydigan mantiq.
+
+\`\`\`python
+class Kitob:
+    def __init__(self, nom, sahifa):
+        self.nom = nom
+        self.sahifa = sahifa
+    def __str__(self):
+        return f"'{self.nom}' kitobi"
+    def __len__(self):
+        return self.sahifa
+
+k = Kitob("Python Darslari", 320)
+print(k)      # 'Python Darslari' kitobi
+print(len(k)) # 320
+\`\`\``,
+            codeExample: `class Kitob:
+    def __init__(self, nom, sahifa):
+        self.nom = nom
+        self.sahifa = sahifa
+
+    # 1. __str__ metodini yozing, u "'{nom}'" shaklida qaytarsin.
+    # 2. __len__ metodini yozing, u sahifalar sonini (sahifa) qaytarsin.
+    # Kitob("Alkimyogar", 180) obyektini yarating va print(k) hamda print(len(k)) qiling.`,
+            solution: `class Kitob:
+    def __init__(self, nom, sahifa):
+        self.nom = nom
+        self.sahifa = sahifa
+    def __str__(self):
+        return f"'{self.nom}'"
+    def __len__(self):
+        return self.sahifa
+
+k = Kitob("Alkimyogar", 180)
+print(k)
+print(len(k))`,
+            exercisePrompt: "Kitob('Alkimyogar', 180) yaratib, uning __str__ va __len__ natijalarini alohida-alohida print qiling (Natijalar: 'Alkimyogar' va 180).",
+            testCases: [{ input: "", expectedOutput: "'Alkimyogar'\n180" }]
           }
         ]
       }
@@ -657,6 +917,456 @@ class User:
 print(User.filter(active=True))`,
             exercisePrompt: "User klassining filter(cls, active) metodini yozing, u database_records-dagi active holatiga mos keladigan foydalanuvchilar ro'yxatini qaytarsin (Natija: ['anvar', 'kamola']).",
             testCases: [{ input: "", expectedOutput: "['anvar', 'kamola']" }]
+          }
+        ]
+      },
+      {
+        id: "m6",
+        title: "Asinxron Dasturlash va Kengaytirilgan Mavzular",
+        description: "Asyncio, ko'p oqimli dasturlash, kontekst menejerlari va metaklasslar.",
+        lessons: [
+          {
+            id: "m6_l1",
+            title: "Asinxron Dasturlash (async/await va asyncio)",
+            duration: "25 daqiqa",
+            content: `### Asinxron dasturlash nima?
+Asinxron dasturlash - bu dasturni I/O (kirish-chiqish) jarayonlari bloklanib qolmasdan parallel ravishda boshqa vazifalarni bajarishiga imkon beruvchi yondashuvdir. U bir oqimli (single-threaded) Voqealar Sikliga (Event Loop) asoslanadi.
+
+Asosiy tushunchalar:
+* \`async def\` - asinxron funksiyani (coroutine) e'lon qilish.
+* \`await\` - asinxron operatsiyaning (masalan tarmoqdan yuklash) natijasini kutish. Bu vaqtda boshqa asinxron funksiyalar ishlashi mumkin.
+* \`asyncio.run()\` - coroutine'ni ishga tushirish.
+
+\`\`\`python
+import asyncio
+
+async def yuklash():
+    print("Yuklash boshlandi...")
+    await asyncio.sleep(1) # 1 soniya kutish (bloklamasdan)
+    print("Yuklash tugadi!")
+
+asyncio.run(yuklash())
+\`\`\``,
+            codeExample: `import asyncio
+
+async def salom():
+    # 1. Asinxron ravishda "Salom" deb yozing
+    # 2. asyncio.sleep(0.5) orqali 0.5 soniya kuting (await dan foydalaning)
+    # 3. "Dunyo!" deb yozing
+    print("Salom")
+    # Kod yozing
+    print("Dunyo!")
+
+asyncio.run(salom())`,
+            solution: `import asyncio
+
+async def salom():
+    print("Salom")
+    await asyncio.sleep(0.5)
+    print("Dunyo!")
+
+asyncio.run(salom())`,
+            exercisePrompt: "asyncio.sleep(0.5) kutishini await yordamida yozing (Natija: Salom keyin Dunyo!).",
+            testCases: [{ input: "", expectedOutput: "Salom\nDunyo!" }]
+          },
+          {
+            id: "m6_l2",
+            title: "Ko'p Oqimli va Ko'p Jarayonli Dasturlash",
+            duration: "25 daqiqa",
+            content: `### Multithreading vs Multiprocessing
+Python-da concurrency (parallel) ishlashning ikkita asosiy yo'li bor:
+
+1. **Multithreading (Ko'p oqimlilik)**: Bitta jarayon ichida bir nechta oqim yaratish. Oqimlar umumiy xotirani bo'lishadi. Python-da **GIL (Global Interpreter Lock)** sababli, faqat bitta oqim bir vaqtning o'zida Python baytkodini ishga tushira oladi. Shuning uchun multithreading asosan I/O-bound (tarmoq yoki fayl kutish) vazifalar uchun foydalidir.
+2. **Multiprocessing (Ko'p jarayonlilik)**: Har biri o'z shaxsiy xotirasiga va Python interpretatoriga ega bo'lgan alohida jarayonlarni ishga tushirish. GIL cheklovini aylanib o'tadi va CPU-bound (og'ir matematik hisob-kitoblar) vazifalar uchun eng yaxshisidir.
+
+\`\`\`python
+import threading
+import time
+
+def ish():
+    print("Oqim ishlamoqda...")
+
+t = threading.Thread(target=ish)
+t.start()
+t.join()
+\`\`\``,
+            codeExample: `import threading
+
+# 1. 'salomlash' funksiyasini yozing, u "Oqimdan salom!" deb print qilsin.
+# 2. Shu funksiyani bajaruvchi threading.Thread oqimini yarating.
+# 3. Oqimni start() orqali ishga tushiring va join() orqali yakunlanishini kuting.
+def salomlash():
+    print("Oqimdan salom!")
+
+t = threading.Thread(target=salomlash)
+t.start()
+t.join()`,
+            solution: `import threading
+
+def salomlash():
+    print("Oqimdan salom!")
+
+t = threading.Thread(target=salomlash)
+t.start()
+t.join()`,
+            exercisePrompt: "Threading yordamida oqim yaratib uni ishga tushiring (Natija: Oqimdan salom!).",
+            testCases: [{ input: "", expectedOutput: "Oqimdan salom!" }]
+          },
+          {
+            id: "m6_l3",
+            title: "Kontekst Menejerlari (Context Managers)",
+            duration: "20 daqiqa",
+            content: `### Kontekst Menejerlari va 'with'
+Kontekst menejerlari resurslar (fayllar, bazalar, qulflar) ochilganda ularni ishlatib bo'lingach, albatta yopilishini (tozalanishini) kafolatlaydigan tuzilmadir.
+
+Klassda kontekst menejeri yaratish uchun ikkita dunder metod realizatsiya qilinishi kerak:
+1. \`__enter__(self)\` - \`with\` bloki boshlanishida ishlaydi va resursni qaytaradi.
+2. \`__exit__(self, exc_type, exc_val, exc_tb)\` - \`with\` bloki tugaganda (xatolik yuz bersa ham) ishlaydi va resursni yopadi.
+
+\`\`\`python
+class MeningKontekstim:
+    def __enter__(self):
+        print("Kirish")
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Chiqish")
+
+with MeningKontekstim():
+    print("Ish bajarilmoqda")
+# Natija:
+# Kirish
+# Ish bajarilmoqda
+# Chiqish
+\`\`\``,
+            codeExample: `class LogMenejer:
+    def __enter__(self):
+        print("Boshlandi")
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Tugadi")
+
+# LogMenejer kontekst menejerini with operatori orqali ochib,
+# uning ichida "Bajarilmoqda" matnini chop eting.`,
+            solution: `class LogMenejer:
+    def __enter__(self):
+        print("Boshlandi")
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Tugadi")
+
+with LogMenejer():
+    print("Bajarilmoqda")`,
+            exercisePrompt: "with operatori yordamida LogMenejer kontekstini ochib, ichida 'Bajarilmoqda' matnini print qiling (Natija: Boshlandi, keyin Bajarilmoqda, keyin Tugadi).",
+            testCases: [{ input: "", expectedOutput: "Boshlandi\nBajarilmoqda\nTugadi" }]
+          },
+          {
+            id: "m6_l4",
+            title: "Metaklasslar va Klasslar Dinamikasi (Metaclasses)",
+            duration: "25 daqiqa",
+            content: `### Metaklasslar (Metaclasses)
+Python-da hamma narsa obyektdir, jumladan klasslar ham. Klass yaratilganda u ham qaysidir metaklassning (odatda \`type\` ning) obyekti sifatida vujudga keladi.
+
+Metaklass - bu boshqa klasslarni yaratuvchi va ularning tuzilishini nazorat qiluvchi klass. U \`type\` klassidan meros oladi va \`__new__\` yoki \`__init__\` metodlarini qayta yozadi.
+
+\`\`\`python
+class SalomMetaklass(type):
+    def __new__(cls, name, bases, dct):
+        # Yaratilayotgan klassga yangi metod qo'shish
+        dct['salom'] = lambda self: "Assalomu alaykum"
+        return super().__new__(cls, name, bases, dct)
+
+class Talaba(metaclass=SalomMetaklass):
+    pass
+
+t = Talaba()
+print(t.salom()) # Assalomu alaykum
+\`\`\``,
+            codeExample: `class PrefixMetaclass(type):
+    def __new__(cls, name, bases, dct):
+        # Yaratilayotgan klassga 'prefix_name' atributini qo'shib unga name (klass nomi) qiymatini bering
+        dct['prefix_name'] = f"Klass: {name}"
+        return super().__new__(cls, name, bases, dct)
+
+class Shaxs(metaclass=PrefixMetaclass):
+    pass
+
+# Shaxs obyektini yaratib uning 'prefix_name' atributini chop eting.
+s = Shaxs()
+# Kodni davom ettiring`,
+            solution: `class PrefixMetaclass(type):
+    def __new__(cls, name, bases, dct):
+        dct['prefix_name'] = f"Klass: {name}"
+        return super().__new__(cls, name, bases, dct)
+
+class Shaxs(metaclass=PrefixMetaclass):
+    pass
+
+s = Shaxs()
+print(s.prefix_name)`,
+            exercisePrompt: "Shaxs obyektining prefix_name atributini print qiling (Natija: Klass: Shaxs).",
+            testCases: [{ input: "", expectedOutput: "Klass: Shaxs" }]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "practical_libraries",
+    title: "Amaliy Kutubxonalar & Testlash",
+    difficulty: Difficulty.ADVANCED,
+    description: "Requests, BeautifulSoup, NumPy, Pandas va PyTest kutubxonalari bilan amaliy dasturlar yozish va testlash.",
+    iconName: "Server",
+    modules: [
+      {
+        id: "m7",
+        title: "Tashqi API va Web Scraping",
+        description: "Tashqi HTTP so'rovlar, JSON API ulanish va HTML ma'lumotlarni yig'ish.",
+        lessons: [
+          {
+            id: "m7_l1",
+            title: "API va JSON bilan ishlash (Requests)",
+            duration: "20 daqiqa",
+            content: `### API va JSON bilan ishlash (Requests)
+Real dunyoda dasturlar boshqa dasturlar yoki serverlar bilan ma'lumot almashadi. Bu jarayon **API (Application Programming Interface)** deb ataladi. API-lar orqali keladigan ma'lumotlarning aksariyati **JSON** formatida bo'ladi.
+
+Pythonda API-larga so'rov yuborish uchun eng ko'p ishlatiladigan paket - bu \`requests\` paketi hisoblanadi.
+
+HTTP so'rov turlari:
+* **GET** - Serverdan ma'lumot olish.
+* **POST** - Serverga yangi ma'lumot yuborish.
+
+\`\`\`python
+import requests
+
+response = requests.get("https://api.github.com/users/octocat")
+if response.status_code == 200:
+    user_data = response.json()
+    print(user_data["name"])
+\`\`\`
+
+Ushbu darsda, internet ulanishisiz API javoblarini (JSON matnlarini) parse qilish va qayta ishlash uchun Pythonning built-in \`json\` modulidan foydalanishni o'rganamiz.`,
+            codeExample: `import json
+
+# Foydalanuvchilar haqidagi JSON ma'lumot berilgan.
+# Undan barcha foydalanuvchilarning email manzillarini 
+# ro'yxat (list) ko'rinishida qaytaruvchi extract_emails(json_str) funksiyasini yozing.
+
+def extract_emails(json_str):
+    # json_str ni yuklab, email'larni ro'yxat qilib qaytaring
+    pass
+
+json_data = '{"users": [{"name": "Anvar", "email": "anvar@mail.com"}, {"name": "Kamola", "email": "kamola@mail.com"}]}'
+print(extract_emails(json_data))`,
+            solution: `import json
+
+def extract_emails(json_str):
+    data = json.loads(json_str)
+    return [user["email"] for user in data["users"]]
+
+json_data = '{"users": [{"name": "Anvar", "email": "anvar@mail.com"}, {"name": "Kamola", "email": "kamola@mail.com"}]}'
+print(extract_emails(json_data))`,
+            exercisePrompt: "extract_emails(json_str) funksiyasini yozing, u JSON matnidan email'larni ro'yxat qilib qaytarsin (Natija: ['anvar@mail.com', 'kamola@mail.com']).",
+            testCases: [{ input: "", expectedOutput: "['anvar@mail.com', 'kamola@mail.com']" }]
+          },
+          {
+            id: "m7_l2",
+            title: "HTML Scraping va Matn extraction",
+            duration: "20 daqiqa",
+            content: `### Web Scraping asoslari
+**Web Scraping** (Veb-skreping) - bu veb-sahifalardan ma'lumotlarni dasturiy ravishda yuklab olish va keraksiz kodlardan ajratib tozalash jarayonidir. Python-da bu uchun \`beautifulsoup4\` va \`scrapy\` kutubxonalari keng qo'llaniladi.
+
+BeautifulSoup yordamida HTML tarkibini osongina daraxt tuzilmasiga o'tkazish va teglarni qidirish mumkin:
+\`\`\`python
+from bs4 import BeautifulSoup
+
+html = "<html><body><h1>Salom Dunyo</h1></body></html>"
+soup = BeautifulSoup(html, "html.parser")
+print(soup.h1.text) # Salom Dunyo
+\`\`\`
+
+Biz esa bu jarayonni o'rganish uchun, HTML matn ichidagi ma'lumotlarni qidirishda juda kuchli hisoblangan built-in muntazam ifodalar - \`re\` (Regular Expressions) moduli yordamida havolalarni ajratib olishni mashq qilamiz.`,
+            codeExample: `import re
+
+# Berilgan HTML matni tarkibidagi barcha havolalarni (href qiymatlarini)
+# topib qaytaruvchi extract_links(html) funksiyasini yozing.
+# Masalan: href="https://example.com" dan 'https://example.com' ni olish kerak.
+
+def extract_links(html):
+    # re.findall() yordamida href qiymatlarini toping
+    pass
+
+html_markup = '<p>Batafsil <a href="https://kun.uz">Kun.uz</a> yoki <a href="https://daryo.uz">Daryo</a> saytida.</p>'
+print(extract_links(html_markup))`,
+            solution: `import re
+
+def extract_links(html):
+    return re.findall(r'href="([^"]+)"', html)
+
+html_markup = '<p>Batafsil <a href="https://kun.uz">Kun.uz</a> yoki <a href="https://daryo.uz">Daryo</a> saytida.</p>'
+print(extract_links(html_markup))`,
+            exercisePrompt: "re.findall() yordamida href attribute qiymatlarini ajratib oluvchi extract_links(html) funksiyasini yozing (Natija: ['https://kun.uz', 'https://daryo.uz']).",
+            testCases: [{ input: "", expectedOutput: "['https://kun.uz', 'https://daryo.uz']" }]
+          }
+        ]
+      },
+      {
+        id: "m8",
+        title: "Ma'lumotlar Tahlili (Pandas & NumPy)",
+        description: "Pandas va NumPy kutubxonalari yordamida ma'lumotlar bilan ishlash, filtrlash va statistik tahlillar.",
+        lessons: [
+          {
+            id: "m8_l1",
+            title: "NumPy va Vektorli amallar asoslari",
+            duration: "22 daqiqa",
+            content: `### NumPy nima?
+**NumPy** (Numerical Python) - Python-da ilmiy va matematik hisob-kitoblar uchun asosiy kutubxonadir. Uning markazida ko'p o'lchovli massivlar - **ndarray** turadi.
+
+NumPy oddiy ro'yxatlarga qaraganda 100 martagacha tezroq ishlaydi, chunki uning ostidagi barcha hisob-kitoblar C tilida yozilgan va xotira ketma-ket joylashgan (Vectorization).
+
+Massiv ustida amal bajarish:
+\`\`\`python
+import numpy as np
+
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+print(a * b) # [4, 10, 18] - elementma-element ko'paytirish
+print(np.dot(a, b)) # 32 - skalyar ko'paytma (dot product)
+\`\`\`
+
+Keling, NumPy qanday ishlashini yaxshiroq tushunish uchun ikki ro'yxatning skalyar ko'paytmasini (dot product) pure Python-da vektorli usulda yozib chiqamiz.`,
+            codeExample: `# Ikki bir xil o'lchamli sonlar ro'yxatining skalyar ko'paytmasini
+# (dot product) hisoblaydigan dot_product(vec1, vec2) funksiyasini yozing.
+# Formula: vec1[0]*vec2[0] + vec1[1]*vec2[1] + ...
+
+def dot_product(vec1, vec2):
+    # zip() yordamida elementlarni birma-bir ko'paytirib yig'indisini toping
+    pass
+
+print(dot_product([1, 2, 3], [4, 5, 6]))`,
+            solution: `def dot_product(vec1, vec2):
+    return sum(a * b for a, b in zip(vec1, vec2))
+
+print(dot_product([1, 2, 3], [4, 5, 6]))`,
+            exercisePrompt: "Ikki ro'yxatning skalyar ko'paytmasini (dot product) sum() va zip() yordamida hisoblab print qiling (Natija: 32).",
+            testCases: [{ input: "", expectedOutput: "32" }]
+          },
+          {
+            id: "m8_l2",
+            title: "Pandas va CSV ma'lumotlar tahlili",
+            duration: "25 daqiqa",
+            content: `### Pandas nima?
+**Pandas** - ma'lumotlarni tahlil qilish va qayta ishlash uchun eng mahhur kutubxonadir. U jadvalli ma'lumotlar bilan ishlash uchun ikki asosiy strukturani taqdim etadi:
+1. **Series** - bir o'lchovli ustun.
+2. **DataFrame** - ikki o'lchovli jadval (Excel kabi).
+
+Excel yoki CSV fayllarni o'qish Pandas-da juda oddiy:
+\`\`\`python
+import pandas as pd
+
+df = pd.read_csv("maulumotlar.csv")
+print(df.describe()) # asosiy statistik ko'rsatkichlar
+print(df[df["yosh"] > 30]) # filtrlash
+\`\`\``,
+            codeExample: `import csv
+import io
+
+# Berilgan CSV matnidan foydalanib barcha shaxslarning 
+# o'rtacha yoshini (average age) hisoblovchi average_age(csv_str) funksiyasini yozing.
+# Python-ning built-in 'csv' modulidan foydalaning.
+
+def average_age(csv_str):
+    f = io.StringIO(csv_str.strip())
+    reader = csv.DictReader(f)
+    # Yoshlarni yig'ib o'rtachasini toping
+    pass
+
+csv_data = """name,age
+Ali,25
+Vali,35
+Sardor,30"""
+
+print(average_age(csv_data))`,
+            solution: `import csv
+import io
+
+def average_age(csv_str):
+    f = io.StringIO(csv_str.strip())
+    reader = csv.DictReader(f)
+    ages = [int(row["age"]) for row in reader]
+    return sum(ages) / len(ages)
+
+csv_data = """name,age
+Ali,25
+Vali,35
+Sardor,30"""
+
+print(average_age(csv_data))`,
+            exercisePrompt: "Foydalanuvchilarning o'rtacha yoshini csv.DictReader yordamida hisoblab, float qiymatda qaytaring (Natija: 30.0).",
+            testCases: [{ input: "", expectedOutput: "30.0" }]
+          }
+        ]
+      },
+      {
+        id: "m9",
+        title: "Dasturni Testlash (Unit Testing)",
+        description: "Kodni test-driven usulda yozish, unittest built-in kutubxonasi va asertlar.",
+        lessons: [
+          {
+            id: "m9_l1",
+            title: "Unittest orqali Unit testlar yozish",
+            duration: "25 daqiqa",
+            content: `### Kodni testlash (Unit Testing)
+Professional dasturiy ta'minot yaratishda kodning to'g'ri ishlashini avtomatik tekshiradigan testlar yozish juda muhimdir. **Unit test** - bu kodning eng kichik bo'lagini (odatda funksiya yoki metodni) alohida tekshiruvchi testdir.
+
+Pythonda bu uchun built-in \`unittest\` kutubxonasi mavjud.
+
+Test klassi yaratish uchun \`unittest.TestCase\` dan meros olinadi. Test metodlari nomi esa albatta \`test_\` so'zi bilan boshlanishi kerak:
+\`\`\`python
+import unittest
+
+def qoshish(a, b):
+    return a + b
+
+class TestMath(unittest.TestCase):
+    def test_qoshish(self):
+        self.assertEqual(qoshish(2, 3), 5)
+        self.assertEqual(qoshish(-1, 1), 0)
+\`\`\``,
+            codeExample: `import unittest
+
+# 1. Ikki sonni ko'paytiruvchi kopaytirish(a, b) funksiyasini yozing.
+# 2. unittest.TestCase dan meros olgan TestKopaytirish klassini yarating.
+# 3. Uning ichida test_kopaytirish(self) metodini yozib,
+#    self.assertEqual() yordamida 3 * 4 = 12 va -1 * 5 = -5 ekanini tekshiring.
+
+def kopaytirish(a, b):
+    return a * b
+
+# Test klassini yozing:
+class TestKopaytirish(unittest.TestCase):
+    pass
+
+# Testlarni ishga tushiramiz:
+suite = unittest.TestLoader().loadTestsFromTestCase(TestKopaytirish)
+runner = unittest.TextTestRunner(verbosity=0)
+result = runner.run(suite)
+print("Tests passed:", result.wasSuccessful())`,
+            solution: `import unittest
+
+def kopaytirish(a, b):
+    return a * b
+
+class TestKopaytirish(unittest.TestCase):
+    def test_kopaytirish(self):
+        self.assertEqual(kopaytirish(3, 4), 12)
+        self.assertEqual(kopaytirish(-1, 5), -5)
+
+suite = unittest.TestLoader().loadTestsFromTestCase(TestKopaytirish)
+runner = unittest.TextTestRunner(verbosity=0)
+result = runner.run(suite)
+print("Tests passed:", result.wasSuccessful())`,
+            exercisePrompt: "Multiplication funksiyasini testlovchi TestKopaytirish klassini yozib, testlarni muvaffaqiyatli yakunlang (Natija: Tests passed: True).",
+            testCases: [{ input: "", expectedOutput: "Tests passed: True" }]
           }
         ]
       }
@@ -1291,6 +2001,13 @@ export const quizQuestions: { [moduleId: string]: QuizQuestion[] } = {
       options: ["Guido van Rossum", "Dennis Ritchie", "Bjarne Stroustrup", "James Gosling"],
       correctIndex: 0,
       explanation: "Python tili 1989-yil oxirida niderlandiyalik dasturchi Guido van Rossum tomonidan yaratilgan."
+    },
+    {
+      id: "q1_3",
+      question: "Qaysi ma'lumot turi o'zgaruvchan emas (immutable) va tartiblangan hisoblanadi?",
+      options: ["List (Ro'yxat)", "Tuple (Kortej)", "Set (To'plam)", "Dictionary (Lug'at)"],
+      correctIndex: 1,
+      explanation: "Kortej (Tuple) elementlari o'zgartirilmaydi (immutable) va ular tartiblangan bo'ladi."
     }
   ],
   "m2": [
@@ -1300,6 +2017,13 @@ export const quizQuestions: { [moduleId: string]: QuizQuestion[] } = {
       options: ["Gullik qavslar {} orqali", "Keywords orqali", "Indentatsiya (to'rt marta bo'sh joy) orqali", "Nuqtali vergul bilan"],
       correctIndex: 2,
       explanation: "Pythonda bloklarni guruhlash uchun faqat xatboshi (indentation) ishlatiladi."
+    },
+    {
+      id: "q2_2",
+      question: "Fayl oxiriga yangi ma'lumotlarni qo'shish (append) uchun open() funksiyasining qaysi rejimidan (mode) foydalaniladi?",
+      options: ["'r'", "'w'", "'a'", "'x'"],
+      correctIndex: 2,
+      explanation: "'a' (append) rejimi fayl oxiriga ma'lumot qo'shish uchun ishlatiladi."
     }
   ],
   "m3": [
@@ -1309,6 +2033,87 @@ export const quizQuestions: { [moduleId: string]: QuizQuestion[] } = {
       options: ["this", "parent", "self", "object"],
       correctIndex: 2,
       explanation: "Python an'anasiga ko'ra klass ichidagi metodlar birinchi argument sifatida hamisha 'self'ni oladi."
+    },
+    {
+      id: "q3_2",
+      question: "Klass o'zgaruvchisini private (xususiy, tashqi kirish cheklangan) qilish uchun uning nomidan oldin nima qo'yiladi?",
+      options: ["Bitta pastki chiziq '_'", "Ikkita pastki chiziq '__'", "Dollar belgisi '$'", "Private kalit so'zi"],
+      correctIndex: 1,
+      explanation: "Pythonda klass o'zgaruvchisining nomiga ikkita pastki chiziq (double underscore) qo'shilsa, u private bo'ladi."
+    },
+    {
+      id: "q3_3",
+      question: "Obyektni chop etganda (print) yoki str() ga o'girganda ishlaydigan maxsus (dunder) metod qaysi?",
+      options: ["__init__", "__len__", "__str__", "__repr__"],
+      correctIndex: 2,
+      explanation: "__str__ metodi obyekt chop etilganda uning satrli ko'rinishini qaytaradi."
+    }
+  ],
+  "m6": [
+    {
+      id: "q6_1",
+      question: "Asinxron funksiyani (coroutine) e'lon qilish va chaqirishda qaysi kalit so'zlardan foydalaniladi?",
+      options: ["def / call", "async def / await", "promise / then", "thread / run"],
+      correctIndex: 1,
+      explanation: "Pythonda asinxron funksiyalar 'async def' bilan e'lon qilinadi va ularni kutish uchun 'await' ishlatiladi."
+    },
+    {
+      id: "q6_2",
+      question: "Python-da Global Interpreter Lock (GIL) nima uchun xizmat qiladi?",
+      options: [
+        "Xavfsizlik maqsadida dasturlarni shifrlaydi",
+        "Bir vaqtda faqat bitta oqim Python baytkodini ishga tushirishini ta'minlaydi",
+        "O'zgaruvchilar xotirasini avtomat tozalaydi",
+        "Klasslar sonini cheklaydi"
+      ],
+      correctIndex: 1,
+      explanation: "GIL bir vaqtning o'zida faqat bitta oqim Python baytkodini boshqarishini kafolatlaydi, bu esa ko'p yadroli tizimlarda multithreading samaradorligini cheklaydi."
+    }
+  ],
+  "m7": [
+    {
+      id: "q7_1",
+      question: "Serverdan ma'lumot olish uchun HTTP-ning qaysi so'rov turidan (method) foydalaniladi?",
+      options: ["GET", "POST", "DELETE", "PUT"],
+      correctIndex: 0,
+      explanation: "HTTP GET so'rovi serverdan ma'lumotlarni so'rash va yuklab olish uchun ishlatiladi."
+    },
+    {
+      id: "q7_2",
+      question: "HTML matn tarkibidagi teglarni parse qilish va ma'lumot ajratish nima deb ataladi?",
+      options: ["Web Scraping", "Data Serialization", "Recursion", "Multithreading"],
+      correctIndex: 0,
+      explanation: "Veb-sahifalardan ma'lumotlarni dasturiy yig'ish va tozalash jarayoni Web Scraping deb ataladi."
+    }
+  ],
+  "m8": [
+    {
+      id: "q8_1",
+      question: "NumPy kutubxonasining oddiy Python list'laridan asosiy ustunligi nimada?",
+      options: [
+        "Ular ko'proq xotira egallaydi",
+        "Vektorli hisob-kitoblar (C-backend) tufayli ancha tez ishlaydi",
+        "Faqat matn saqlay oladi",
+        "Hech qanday farqi yo'q"
+      ],
+      correctIndex: 1,
+      explanation: "NumPy massivlari xotirada ketma-ket joylashgani va vektorlashtirilgani tufayli oddiy listlardan ancha tez ishlaydi."
+    },
+    {
+      id: "q8_2",
+      question: "Pandas kutubxonasida ikki o'lchovli jadval shaklidagi asosiy tuzilma nima deb ataladi?",
+      options: ["Series", "DataFrame", "Matrix", "List"],
+      correctIndex: 1,
+      explanation: "Pandas-da ikki o'lchovli ustun va satrlardan iborat jadval strukturasi 'DataFrame' deyiladi."
+    }
+  ],
+  "m9": [
+    {
+      id: "q9_1",
+      question: "Dasturni unit testlash uchun ishlatiladigan Python-ning built-in kutubxonasi qaysi?",
+      options: ["unittest", "pytest", "json", "math"],
+      correctIndex: 0,
+      explanation: "Python-ning standart kutubxonasi tarkibidagi 'unittest' moduli unit testlar yozish uchun maxsus xizmat qiladi."
     }
   ]
 };

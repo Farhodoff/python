@@ -47,7 +47,8 @@ const IconMap: { [key: string]: any } = {
   Flame: Flame,
   Trophy: Trophy,
   Cpu: Cpu,
-  ShieldAlert: ShieldAlert
+  ShieldAlert: ShieldAlert,
+  Server: Server
 };
 
 export default function App() {
