@@ -314,6 +314,64 @@ with open("data.txt", "r") as f:
     print(f.read())`,
             exercisePrompt: "with open() yordamida data.txt faylini o'qib uning tarkibini print qiling (Natija: Python 2026).",
             testCases: [{ input: "", expectedOutput: "Python 2026" }]
+          },
+          {
+            id: "m2_l7",
+            title: "Sana va Vaqt bilan ishlash (datetime)",
+            duration: "15 daqiqa",
+            content: `### Sana va Vaqt (datetime moduli)
+Dasturlashda deyarli har doim sana va vaqt bilan ishlashga to'g'ri keladi (masalan: foydalanuvchi qachon ro'yxatdan o'tdi, to'lov muddati qachon tugaydi va h.k.). Pythonda buning uchun maxsus built-in \`datetime\` moduli mavjud.
+
+Asosiy klasslar:
+* \`date\` - faqat sana (yil, oy, kun) uchun.
+* \`time\` - faqat vaqt (soat, minut, sekund, mikrosekund) uchun.
+* \`datetime\` - sana va vaqt birgalikda.
+* \`timedelta\` - ikki sana yoki vaqt orasidagi farq (davomiylik).
+
+### Hozirgi vaqtni olish va formatlash:
+\`\`\`python
+from datetime import datetime
+
+hozir = datetime.now()
+print(hozir) # 2026-06-06 23:15:20.123456
+
+# Matnga o'girish (strftime - String Format Time)
+matn = hozir.strftime("%d-%m-%Y")
+print(matn) # 06-06-2026
+\`\`\`
+
+### Matndan sanaga o'girish (strptime - String Parse Time):
+\`\`\`python
+sana_matn = "2026-06-15"
+sana_obj = datetime.strptime(sana_matn, "%Y-%m-%d")
+print(sana_obj.year) # 2026
+\`\`\``,
+            codeExample: `from datetime import datetime
+
+# Ikki xil sana matni berilgan (format: YYYY-MM-DD).
+# Ular orasidagi kunlar farqini butun son (int) sifatida 
+# qaytaruvchi kunlar_farqi(sana1, sana2) funksiyasini yozing.
+# Maslahat: datetime.strptime orqali obyektga o'giring va ularni ayiring (.days).
+
+def kunlar_farqi(sana1_str, sana2_str):
+    # Kodni shu yerga yozing
+    pass
+
+sana1 = "2026-06-10"
+sana2 = "2026-06-20"
+print(kunlar_farqi(sana1, sana2))`,
+            solution: `from datetime import datetime
+
+def kunlar_farqi(sana1_str, sana2_str):
+    d1 = datetime.strptime(sana1_str, "%Y-%m-%d")
+    d2 = datetime.strptime(sana2_str, "%Y-%m-%d")
+    return abs((d2 - d1).days)
+
+sana1 = "2026-06-10"
+sana2 = "2026-06-20"
+print(kunlar_farqi(sana1, sana2))`,
+            exercisePrompt: "kunlar_farqi(sana1_str, sana2_str) funksiyasini yozing, u ikki sana orasidagi kunlar farqini musbat son sifatida qaytarsin (Natija: 10).",
+            testCases: [{ input: "", expectedOutput: "10" }]
           }
         ]
       }
@@ -2024,6 +2082,13 @@ export const quizQuestions: { [moduleId: string]: QuizQuestion[] } = {
       options: ["'r'", "'w'", "'a'", "'x'"],
       correctIndex: 2,
       explanation: "'a' (append) rejimi fayl oxiriga ma'lumot qo'shish uchun ishlatiladi."
+    },
+    {
+      id: "q2_3",
+      question: "datetime modulida ikki sana orasidagi farqni (davomiylikni) ifodalash uchun qaysi klass ishlatiladi?",
+      options: ["date", "time", "timedelta", "timezone"],
+      correctIndex: 2,
+      explanation: "timedelta klassi ikki sana yoki vaqt orasidagi farqni (davomiylikni) ifodalaydi."
     }
   ],
   "m3": [
